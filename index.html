@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Babylon.js Quiz 2</title>
+
+    <!-- Fill the browser window with the Babylon.js render canvas. -->
+    <style>
+        html,
+        body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            overflow: hidden;
+        }
+
+        #renderCanvas {
+            width: 100%;
+            height: 100%;
+            touch-action: none;
+        }
+    </style>
+
+    <!-- Babylon.js core library and asset loader support. -->
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Babylon.js renders the 3D/WebXR scene into this canvas. -->
+    <canvas id="renderCanvas"></canvas>
+
+    <script type="module">
+        import { createScene } from "./scene.js";
+
+        // Initialize the Babylon.js rendering engine.
+        const canvas =
+            document.getElementById("renderCanvas");
+
+        const engine =
+            new BABYLON.Engine(
+                canvas,
+                true
+            );
+
+        // Build the scene defined in scene.js.
+        const scene =
+            await createScene(
+                engine,
+                canvas
+            );
+
+        // Continuously render the scene.
+        engine.runRenderLoop(() => {
+            scene.render();
+        });
+
+        // Keep the rendered scene matched to the browser window size.
+        window.addEventListener(
+            "resize",
+            () => {
+                engine.resize();
+            }
+        );
+    </script>
+
+</body>
+
+</html>
